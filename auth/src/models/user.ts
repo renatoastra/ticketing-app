@@ -1,5 +1,5 @@
 import {Schema, model } from "mongoose";
-import { Password } from "../src/services/password";
+import { Password } from "../services/password";
 
 interface IUser {
   email: string;
@@ -14,8 +14,17 @@ const userSchema = new Schema<IUser>({
   password:{
     type: String,
     required: true,
-   }
-})
+   },
+},
+{
+  toJSON: {
+    transform(doc, ret){
+      const { email, _id } = ret;
+      return {  id: _id, email}
+     },
+  },
+ },
+)
 
 userSchema.pre('save', async function(done) {
   if(this.isModified('password')){
