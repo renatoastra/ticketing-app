@@ -1,4 +1,5 @@
 import {Schema, model } from "mongoose";
+import { Password } from "../src/services/password";
 
 interface IUser {
   email: string;
@@ -14,6 +15,14 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
    }
+})
+
+userSchema.pre('save', async function(done) {
+  if(this.isModified('password')){
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password', hashed);
+  }
+  done();
 })
 
 const User = model<IUser>('User', userSchema);
