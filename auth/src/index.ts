@@ -1,4 +1,5 @@
 import express from "express";
+import "express-async-errors"
 import { json } from "body-parser"
 import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/signin";
@@ -6,13 +7,13 @@ import { signOutRouter } from "./routes/signout";
 import { signUpRouter } from "./routes/signup";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
-
+import mongoose from "mongoose";
 
 const app = express()
 app.use(json());
 
 app.all('/api/users/*', async (req, res, next) => {
-  next(new NotFoundError())
+  throw new NotFoundError();
 })
 
 app.use(currentUserRouter);
@@ -22,8 +23,20 @@ app.use(signUpRouter);
 
 app.use(errorHandler);
 
+const start = async () => {
+  try {
+    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
+    console.log('Connected to MongoDB 🍃🍃');
+
+  }catch(err){
+    console.error(err);
+  }
+}
 
 
 app.listen(4000, () => {
-  console.log('LISTENING on port 4000 🎉🎉')
+  console.log('LISTENING on port 4000 🎉🎉');
 });
+
+
+start();
