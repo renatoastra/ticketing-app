@@ -1,5 +1,6 @@
 import express, {type Request, type Response} from 'express';
 import { body, validationResult } from 'express-validator';
+import { RequestValidationError } from '../errors/request-validation-error';
 
 const router = express.Router();
 
@@ -15,14 +16,13 @@ router.post('/api/users/signup', [
   const errors = validationResult(req);
   
   if(!errors.isEmpty()) {
-    return res.status(400).send(errors.array());
+    throw new RequestValidationError(errors.array());
   }
   const {email, password} = req.body;
 
   console.log('Creating a user...');
-  res.send({});
 
-  res.send('Hi there!');
+  res.send({});
 })
 
 export { router as signUpRouter };
