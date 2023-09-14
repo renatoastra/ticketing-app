@@ -1,5 +1,7 @@
-import Image from "next/image";
-
 export default function Home() {
-  return <h1>XSQDL</h1>;
+  return (
+    <div className="w-full flex items-center justify-center h-screen">
+      <h1 className="text-4xl">Hello world</h1>
+    </div>
+  );
 }
