@@ -8,9 +8,9 @@ import { useState } from "react";
 const Page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { push, refresh } = useRouter();
+  const { refresh, push } = useRouter();
   const { doRequest, errors } = useRequest({
-    url: "https://ticketing.dev/api/users/signup",
+    url: "https://ticketing.dev/api/users/signin",
     method: "post",
     body: { email, password },
     onSuccess: (data) => {
@@ -32,7 +32,7 @@ const Page = () => {
         onSubmit={handleSubmit}
         className="flex px-4 w-[300px] rounded-lg  flex-col gap-6"
       >
-        <h1 className="text-4xl font-bold">SIGN UP</h1>
+        <h1 className="text-4xl font-bold">SIGN IN</h1>
         <div className="flex flex-col gap-2 font-mono  ">
           <label htmlFor="email">Email</label>
           <input
@@ -74,7 +74,7 @@ const Page = () => {
           type="submit"
           className="px-3 rounded-lg py-2 hover:bg-emerald-300 bg-emerald-500"
         >
-          Sign Up
+          Sign In
         </button>
       </form>
     </div>
