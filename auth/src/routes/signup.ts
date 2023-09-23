@@ -1,10 +1,10 @@
 import express, {type Request, type Response} from 'express';
 import { body, validationResult } from 'express-validator';
-import { RequestValidationError } from '../errors/request-validation-error';
+import { RequestValidationError } from "@renatoastra-ticketing/common";
 import { User } from '../models/user';
-import { BadRequestError } from '../errors/bad-request-error';
+import { BadRequestError } from "@renatoastra-ticketing/common";
 import jwt from "jsonwebtoken"
-import { validateRequest } from '../middlewares/validate-request';
+import { validateRequest } from "@renatoastra-ticketing/common";
 
 const router = express.Router();
 
