@@ -1,6 +1,5 @@
 import express, {type Request, type Response} from 'express';
-import { body, validationResult } from 'express-validator';
-import { RequestValidationError } from "@renatoastra-ticketing/common";
+import { body } from 'express-validator';
 import { User } from '../models/user';
 import { BadRequestError } from "@renatoastra-ticketing/common";
 import jwt from "jsonwebtoken"
